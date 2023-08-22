@@ -21,7 +21,14 @@ class ServerSerializer(serializers.ModelSerializer):
     # This is called nested serialization
     # This isn't gonna work if we didn't add related_name to the channel model
     channel_server = ChannelSerializer(many=True, read_only=True)
+    members_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Server
-        fields = "__all__"
+        exclude = ["members"]
+
+    # This is to get the number of members in the server, we got this info from the context in the view
+    def get_members_count(self, obj):
+        if hasattr(obj, "num_members"):
+            return obj.num_members
+        return None

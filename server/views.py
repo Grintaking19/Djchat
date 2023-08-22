@@ -1,4 +1,5 @@
 # from django.shortcuts import render
+from django.db.models import Count
 from rest_framework import viewsets
 from rest_framework.exceptions import AuthenticationFailed, ValidationError
 from rest_framework.response import Response
@@ -43,6 +44,10 @@ class ServerListViewSet(viewsets.ViewSet):
         # filter servers based on quantity (limit) you want to get
         if quantity:
             self.queryset = self.queryset[: int(quantity)]
+
+        # if there exist servers then try to get the number of its members
+        if self.queryset.exists():
+            self.queryset = self.queryset.annotate(num_members=Count("members"))
 
         serializer = ServerSerializer(self.queryset, many=True)
         return Response(serializer.data)
