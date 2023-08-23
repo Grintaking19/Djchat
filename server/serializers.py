@@ -27,7 +27,8 @@ class ServerSerializer(serializers.ModelSerializer):
         model = Server
         exclude = ["members"]
 
-    # This is to get the number of members in the server, we got this info from the context in the view
+    # This method is used to get the number of members in the server
+    # num_members is added when we annotate the queryset in the view
     def get_members_count(self, obj):
         if hasattr(obj, "num_members"):
             return obj.num_members
