@@ -2,7 +2,7 @@ from django.db.models import Count
 from rest_framework import viewsets
 from rest_framework.exceptions import AuthenticationFailed, ValidationError
 from rest_framework.response import Response
-
+from .schema import server_list_docs
 from .models import Server
 from .serializers import ServerSerializer
 
@@ -12,6 +12,7 @@ from .serializers import ServerSerializer
 class ServerListViewSet(viewsets.ViewSet):
     queryset = Server.objects.all()
 
+    @server_list_docs
     def list(self, request):
         """
         List servers based on provided query parameters.
@@ -30,26 +31,26 @@ class ServerListViewSet(viewsets.ViewSet):
             ValidationError: If validation errors occur during filtering, such as an invalid server ID.
 
         Example:
-            To list servers with the following filters:
-            - Filter by the category "gaming"
-            - Limit results to 10 servers
-            - Show only the servers where the user is a member
-            - Filter for a server with ID 5
+        To list servers with the following filters:
+        - Filter by the category "gaming"
+        - Limit results to 10 servers
+        - Show only the servers where the user is a member
+        - Filter for a server with ID 5
 
-            GET /servers/?categories=gaming&qty=10&by_user=true&by_server_id=5
+        `GET /servers/?categories=gaming&qty=10&by_user=true&by_server_id=5`
 
         Query Parameters:
-            - categories (str): Filter servers by a specific category name.
-            - qty (int): Limit the number of server results to a specific quantity.
-            - by_user (bool): Filter servers based on user membership (true/false).
-            - by_server_id (int): Filter servers by a specific server ID.
-                Useful for retrieving detailed information about a single server.
+        - `categories` (str): Filter servers by a specific category name.
+        - `qty` (int): Limit the number of server results to a specific quantity.
+        - `by_user` (bool): Filter servers based on user membership (true/false).
+        - `by_server_id` (int): Filter servers by a specific server ID.
+            Useful for retrieving detailed information about a single server.
 
         Filtering Logic:
-            - Servers are filtered by category name if the 'categories' parameter is provided.
-            - Servers are filtered by user membership if the 'by_user' parameter is set to "true".
-            - The 'qty' parameter limits the number of server results returned.
-            - The 'by_server_id' parameter retrieves details for a specific server by its ID.
+        - Servers are filtered by category name if the 'categories' parameter is provided.
+        - Servers are filtered by user membership if the 'by_user' parameter is set to "true".
+        - The 'qty' parameter limits the number of server results returned.
+        - The 'by_server_id' parameter retrieves details for a specific server by its ID.
 
         Response Format:
             The response contains serialized server data in a JSON format.
