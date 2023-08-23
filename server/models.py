@@ -1,15 +1,43 @@
 from django.conf import settings
 from django.db import models
+from django.dispatch import receiver
+from django.shortcuts import get_object_or_404
+
 
 # Create your models here.
+def category_icon_upload_path(instance, filename):
+    return f"category/{instance.id}/category_icon/{filename}"
 
 
 class Category(models.Model):
     name = models.CharField(max_length=80)
     description = models.TextField(null=True, blank=True)
+    icon = models.FileField(null=True, blank=True, upload_to=category_icon_upload_path)
 
     def __str__(self):
         return self.name
+
+    # This in case if the category icon is being updated, then delete the old icon and save the new one
+    def save(self, *args, **kwargs):
+        # Incase if the category is being updated
+        if self.id:
+            existing = get_object_or_404(Category, id=self.id)
+            # If the icon is being updated, then delete the old one
+            if existing.icon != self.icon:
+                existing.icon.delete(save=False)
+        super(Category, self).save(*args, **kwargs)
+
+    # This in case if the category is being deleted, then delete the icon from local storage
+    @receiver(models.signals.pre_delete, sender="server.Category")
+    def delete_category_icon(sender, instance, **kwargs):
+        # Loop through the fields of the model
+        for field in instance._meta.fields:
+            # If the field is the icon field
+            if field.name == "icon":
+                # Get the file from the field
+                file = getattr(instance, field.name)
+                if file:
+                    file.delete(save=False)
 
 
 class Server(models.Model):

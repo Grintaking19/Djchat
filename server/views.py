@@ -2,8 +2,9 @@ from django.db.models import Count
 from rest_framework import viewsets
 from rest_framework.exceptions import AuthenticationFailed, ValidationError
 from rest_framework.response import Response
-from .schema import server_list_docs
+
 from .models import Server
+from .schema import server_list_docs
 from .serializers import ServerSerializer
 
 # Create your views here.
@@ -70,17 +71,20 @@ class ServerListViewSet(viewsets.ViewSet):
         by_server_id = request.query_params.get("by_server_id")
 
         # Check if user is authenticated
-        if not request.user.is_authenticated:
-            raise AuthenticationFailed(detail="User is not authenticated")
+        # if not request.user.is_authenticated:
+        #     raise AuthenticationFailed(detail="User is not authenticated")
 
         # Filter servers by categories
         if categories:
             self.queryset = self.queryset.filter(categories__name=categories)
 
-        # Filter servers based on user id
+        # Filter servers based on user id (if user is authenticated only)
         if by_user:
-            user_id = request.user.id
-            self.queryset = self.queryset.filter(members__id=user_id)
+            if request.user.is_authenticated:
+                user_id = request.user.id
+                self.queryset = self.queryset.filter(members__id=user_id)
+            else:
+                raise AuthenticationFailed(detail="User is not authenticated")
 
         # Filter servers based on server id
         if by_server_id:
