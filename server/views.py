@@ -10,45 +10,57 @@ from .serializers import ServerSerializer
 
 
 class ServerListViewSet(viewsets.ViewSet):
-    """
-    A viewset for listing servers with various filtering options.
-
-    Attributes:
-        queryset (QuerySet): The base queryset for Server objects.
-
-    Methods:
-        list(request): List servers based on given query parameters.
-
-    Returns:
-        Response: A response containing serialized server data.
-    """
-
     queryset = Server.objects.all()
 
     def list(self, request):
         """
         List servers based on provided query parameters.
 
+        This method allows you to retrieve a list of servers with various filtering options,
+        such as filtering by category, user membership, server quantity, and specific server ID.
+
         Args:
-            request (HttpRequest): The HTTP request object.
-
-        Query Parameters:
-            categories (str): Filter servers by a specific category name.
-            by_user (bool): Filter servers based on user membership (true/false).
-            qty (int): Limit the number of server results to a specific quantity.
-            by_server_id (int): Filter servers by a specific server ID.
-
-        Example:
-            To list servers filtered by category "gaming", for a user's servers,
-            limited to 10 results, and filtering by server ID 5:
-            GET /servers/?categories=gaming&by_user=true&qty=10&by_server_id=5
+            request (HttpRequest): The HTTP request object containing query parameters.
 
         Returns:
-            Response: A response containing serialized filtered server data.
+            Response: A response containing serialized server data based on the provided filters.
 
         Raises:
             AuthenticationFailed: If the user is not authenticated.
-            ValidationError: If validation errors occur during filtering.
+            ValidationError: If validation errors occur during filtering, such as an invalid server ID.
+
+        Example:
+            To list servers with the following filters:
+            - Filter by the category "gaming"
+            - Limit results to 10 servers
+            - Show only the servers where the user is a member
+            - Filter for a server with ID 5
+
+            GET /servers/?categories=gaming&qty=10&by_user=true&by_server_id=5
+
+        Query Parameters:
+            - categories (str): Filter servers by a specific category name.
+            - qty (int): Limit the number of server results to a specific quantity.
+            - by_user (bool): Filter servers based on user membership (true/false).
+            - by_server_id (int): Filter servers by a specific server ID.
+                Useful for retrieving detailed information about a single server.
+
+        Filtering Logic:
+            - Servers are filtered by category name if the 'categories' parameter is provided.
+            - Servers are filtered by user membership if the 'by_user' parameter is set to "true".
+            - The 'qty' parameter limits the number of server results returned.
+            - The 'by_server_id' parameter retrieves details for a specific server by its ID.
+
+        Response Format:
+            The response contains serialized server data in a JSON format.
+
+        Server Annotation:
+            If the resulting queryset contains servers, the queryset is annotated with the
+            number of members each server has, providing insight into server popularity.
+
+        Note:
+            Use proper authentication to access this endpoint, as indicated by the
+            'AuthenticationFailed' exception that is raised when not authenticated.
         """
 
         categories = request.query_params.get("categories")
