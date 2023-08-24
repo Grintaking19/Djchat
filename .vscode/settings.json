@@ -20,4 +20,12 @@
     "--max-line-length",
     "119",
   ],
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  // IMPORTANT!!!!! Put the path to your eslint config here (if it isn't in your project root)
+  // "eslint.options": { "configFile": "D:/Courses/Djchat/reactchat/.eslintrc.cjs" },
+  "eslint.workingDirectories": [
+    "./src"
+  ],
 }
