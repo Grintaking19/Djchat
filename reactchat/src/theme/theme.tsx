@@ -10,7 +10,11 @@ declare module '@mui/material/styles' {
     primaryDrawer: {
       width: number;
       onCloseWidth: number;
+    }; 
+    secondaryDrawer: {
+      width: number;
     };
+    
   }
   // allow configuration using `createTheme`
   interface ThemeOptions {
@@ -20,6 +24,9 @@ declare module '@mui/material/styles' {
     primaryDrawer: {
       width: number;
       onCloseWidth: number;
+    };
+    secondaryDrawer: {
+      width: number;
     };
   }
 }
@@ -39,6 +46,9 @@ export const createMuiTheme = () => {
     primaryDrawer: {
       width: 240,
       onCloseWidth: 70,
+    },
+    secondaryDrawer: {
+      width: 240,
     },
     components: {
       MuiAppBar: {
