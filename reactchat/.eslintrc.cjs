@@ -7,7 +7,7 @@ module.exports = {
     'airbnb-typescript',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
-    'plugin:prettier/recommended',
+    'eslint-config-prettier',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
@@ -16,12 +16,21 @@ module.exports = {
     sourceType: 'module',
     project: './reactchat/tsconfig.json',
   },
-  plugins: ['react-refresh', '@typescript-eslint', 'react', 'prettier'],
+  plugins: [
+    'react-refresh',
+    '@typescript-eslint',
+    'react',
+    'eslint-config-prettier',
+  ],
   rules: {
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
     ],
     'react/react-in-jsx-scope': 0,
+    'prettier/prettier': 'error',
   },
+  
+ 
+
 };

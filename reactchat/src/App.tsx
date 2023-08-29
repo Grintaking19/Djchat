@@ -1,10 +1,32 @@
-function App() {
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
+
+import Home from "./pages/Home";
+import React from "react";
+import { ThemeProvider } from "@emotion/react";
+import { createMuiTheme} from "./theme/theme.tsx"
+
+// Create a router that uses the native browser history under the hood.
+const router = createBrowserRouter((
+  createRoutesFromElements(
+    <Route>
+      <Route path="/" element={<Home/>} />
+     </Route>
+   )
+  )
+);
+
+// The root component of our app is just the router provider that
+const App: React.FC = () => {
   return (
-    <>
-      <h1>React Chat</h1>
-      <p>Coming soon...</p>
-    </>
+    <ThemeProvider theme={createMuiTheme()}>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   );
-}
+};
 
 export default App;

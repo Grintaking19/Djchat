@@ -24,8 +24,12 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   // IMPORTANT!!!!! Put the path to your eslint config here (if it isn't in your project root)
-  // "eslint.options": { "configFile": "D:/Courses/Djchat/reactchat/.eslintrc.cjs" },
+    
+  // "eslint.options": {
+  //   "configFile": "D:/Courses/Djchat/reactchat/.eslintrc.cjs"
+  // },
   "eslint.workingDirectories": [
-    "./src"
+    "./reactchat/"
   ],
+  "files.associations": {"*.tsx": "typescriptreact"}
 }
