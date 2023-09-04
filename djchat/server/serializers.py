@@ -22,6 +22,7 @@ class ServerSerializer(serializers.ModelSerializer):
     # This isn't gonna work if we didn't add related_name to the channel model
     channel_server = ChannelSerializer(many=True, read_only=True)
     members_count = serializers.SerializerMethodField()
+    categories = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = Server
@@ -29,6 +30,7 @@ class ServerSerializer(serializers.ModelSerializer):
 
     # This method is used to get the number of members in the server
     # num_members is added when we annotate the queryset in the view
+
     def get_members_count(self, obj):
         if hasattr(obj, "num_members"):
             return obj.num_members

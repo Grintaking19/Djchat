@@ -38,17 +38,26 @@ export const createMuiTheme = () => {
     
     typography: {
       fontFamily: ['IBM Plex Sans', 'sans-serif'].join(','),
+      body1: {
+        fontWeight: 500,
+        letterSpacing: '-0.5px',
+      },
+      body2: {
+        fontWeight: 400,
+        letterSpacing: '-0.5px',
+        fontSize: '15px'
+      }
     },
     
     primaryAppBar: {
       height: 50,
     },
     primaryDrawer: {
-      width: 240,
+      width: 220,
       onCloseWidth: 70,
     },
     secondaryDrawer: {
-      width: 240,
+      width: 210,
     },
     components: {
       MuiAppBar: {

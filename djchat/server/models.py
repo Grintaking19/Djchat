@@ -35,6 +35,7 @@ class Category(models.Model):
             # If the icon is being updated, then delete the old one
             if existing.icon != self.icon:
                 existing.icon.delete(save=False)
+        self.name = self.name.lower()
         super(Category, self).save(*args, **kwargs)
 
     # This in case if the category is being deleted, then delete the icon from local storage

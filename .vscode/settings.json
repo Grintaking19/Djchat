@@ -29,7 +29,12 @@
   //   "configFile": "D:/Courses/Djchat/reactchat/.eslintrc.cjs"
   // },
   "eslint.workingDirectories": [
-    "./reactchat/"
+    "./reactchat/*/**"
   ],
-  "files.associations": {"*.tsx": "typescriptreact"}
+  "files.associations": {
+    "*.tsx": "typescriptreact"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

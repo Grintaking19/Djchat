@@ -8,7 +8,7 @@ def validate_icon_image_size(image):
     if image:
         with Image.open(image) as img:
             width, height = img.size
-            if width > 200 or height > 200:
+            if width < 400 or height < 400:
                 raise ValidationError(f"Image size must be greater than 400x400, but you uploaded {width}x{height}")
 
 
