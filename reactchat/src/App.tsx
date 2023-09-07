@@ -9,13 +9,15 @@ import Home from "./pages/Home";
 import Explore from "./pages/Explore";
 import React from "react";
 import { ThemeProvider } from "@emotion/react";
-import { createMuiTheme} from "./theme/theme.tsx"
+import { createMuiTheme } from "./theme/theme.tsx"
+import Server from "./pages/Server";
 
 // Create a router that uses the native browser history under the hood.
 const router = createBrowserRouter((
   createRoutesFromElements(
     <Route>
       <Route path="/" element={<Home />} />
+      <Route path="/server" element={<Server/>} />
       <Route path="/explore/:categoryName" element={<Explore />} />
      </Route>
    )

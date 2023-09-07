@@ -85,7 +85,6 @@ const ExploreCategories: React.FC = () => {
                       {category.name}
                     </Typography>
                   }
-                  
                   primaryTypographyProps={{
                     sx: {
                       textOverflow: 'ellipsis',

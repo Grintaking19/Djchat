@@ -20,8 +20,8 @@ from django.contrib import admin
 from django.urls import path
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from rest_framework import routers
-
-from server.views import ServerListViewSet, CategoryViewSet
+from server.views import CategoryViewSet, ServerListViewSet
+from webchat.consumer import WebChatConsumer
 
 router = routers.DefaultRouter()
 router.register("api/server/select", ServerListViewSet)
@@ -34,6 +34,10 @@ urlpatterns = [
     path("api/schema/swagger-ui/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
     path("api/schema/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
 ] + router.urls
+
+websocket_urlpatterns = [
+    path("ws/test/", WebChatConsumer.as_asgi()),
+]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

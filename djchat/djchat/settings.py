@@ -36,6 +36,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Django apps
+    "daphne",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -83,6 +85,7 @@ TEMPLATES = [
     },
 ]
 
+ASGI_APPLICATION = "djchat.asgi.application"
 WSGI_APPLICATION = "djchat.wsgi.application"
 
 
@@ -177,3 +180,6 @@ STATICFILES_DIRS = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
 ]
+
+# Channels using InMemoryChannelLayer
+CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}

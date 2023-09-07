@@ -75,8 +75,8 @@ const ExploreServers: React.FC = () => {
               display: {
                 sm: 'block',
                 fontWeight: 700,
-                fontSize: '48px',
-                letterSpacing: '-2px',
+                fontSize: {xs:'36px' ,sm:'48px'},
+                letterSpacing: '-1px',
               },
               textAlign: { xs: 'center', sm: 'left' },
             }}
