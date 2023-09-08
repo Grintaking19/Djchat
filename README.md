@@ -1,2 +1,2 @@
 # Djchat
-Chatting App Built using React and Django.
+Chatting App Built using React, typeScript, MUI and Django Rest Framework.
